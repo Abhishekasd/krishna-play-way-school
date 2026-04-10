@@ -16,7 +16,7 @@ const Footer = () => {
              </div>
           </div>
           <p className="footer-desc mt-sm text-light">
-            A nurturing environment where little minds grow, play, and learn everyday.
+            A nurturing environment centered in Aligarh where little minds grow, play, and learn everyday.
           </p>
           <div className="social-links flex gap-md mt-md">
             <a href="#" className="social-icon"><Globe size={20} /></a>
@@ -50,7 +50,7 @@ const Footer = () => {
           <ul className="footer-contact flex flex-col gap-sm mt-sm text-light">
             <li className="flex gap-sm">
               <MapPin size={18} className="text-primary flex-shrink-0" />
-              <span>123 Play Way Street, Education City, State 12345</span>
+              <span>Krishna Play Way School, Aligarh, UP</span>
             </li>
             <li className="flex gap-sm">
               <Phone size={18} className="text-secondary flex-shrink-0" />

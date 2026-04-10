@@ -19,7 +19,7 @@ const Contact = () => {
             </div>
             <div>
               <h3>Our Address</h3>
-              <p className="text-light text-sm mt-sm">123 Play Way Street, Education City, State 12345</p>
+              <p className="text-light text-sm mt-sm">Krishna Play Way School, Aligarh, Uttar Pradesh, India</p>
             </div>
           </div>
           
@@ -66,6 +66,18 @@ const Contact = () => {
           </form>
         </div>
         
+      {/* Google Maps Section */}
+      <div className="mt-lg bubbly-shape glass-panel" style={{ padding: '0.5rem', overflow: 'hidden', height: '400px', marginTop: '3rem' }}>
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3527.123456789!2d78.0448407!3d27.8918888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDUzJzMwLjgiTiA3OMKwMDInNDEuNCJF!5e0!3m2!1sen!2sin!4v1712717000000!5m2!1sen!2sin" 
+          width="100%" 
+          height="100%" 
+          style={{ border: 0, borderRadius: 'var(--border-radius-lg)' }} 
+          allowFullScreen="" 
+          loading="lazy" 
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Krishna Play Way School Location"
+        ></iframe>
       </div>
     </div>
   );
