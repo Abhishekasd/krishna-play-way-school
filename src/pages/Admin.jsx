@@ -116,7 +116,7 @@ const Admin = () => {
 
     const fileExt = file.name.split('.').pop();
     const fileName = `${Math.random()}.${fileExt}`;
-    const filePath = `${imageCategory}/${fileName}`; 
+    const filePath = `${imageCategory}_${fileName}`; 
 
     const { error } = await supabase.storage.from('gallery').upload(filePath, file);
     if (!error) {
@@ -409,8 +409,8 @@ const Admin = () => {
                 {images.map(img => (
                   <div key={img.name} className="bubbly-shape bg-surface" style={{ overflow: 'hidden', border: '1px solid #e2e8f0', position: 'relative' }}>
                     <div style={{ height: '120px', width: '100%', backgroundColor: '#f7fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                       <img 
-                          src={`${supabase.storage.from('gallery').getPublicUrl(img.name).data.publicUrl}`} 
+                        <img 
+                          src={supabase.storage.from('gallery').getPublicUrl(img.name).data.publicUrl} 
                           alt="gallery" 
                           style={{ objectFit: 'cover', width: '100%', height: '100%' }} 
                         />

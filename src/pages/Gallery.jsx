@@ -23,7 +23,7 @@ const Gallery = () => {
 
   const filtered = activeCategory === 'All' 
     ? images 
-    : images.filter(img => img.name.startsWith(activeCategory));
+    : images.filter(img => img.name.startsWith(`${activeCategory}_`));
 
   return (
     <div className="container" style={{ padding: '4rem 1.5rem', minHeight: '60vh' }}>
