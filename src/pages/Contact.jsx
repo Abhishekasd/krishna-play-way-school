@@ -65,6 +65,7 @@ const Contact = () => {
             </button>
           </form>
         </div>
+      </div>
         
       {/* Google Maps Section */}
       <div className="mt-lg bubbly-shape glass-panel" style={{ padding: '0.5rem', overflow: 'hidden', height: '400px', marginTop: '3rem' }}>
