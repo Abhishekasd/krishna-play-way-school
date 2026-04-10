@@ -36,7 +36,7 @@ const Announcements = () => {
           <p className="text-center text-light">No announcements at this time.</p>
         ) : (
           notices.map((notice) => (
-            <div key={notice.id} className="glass-panel bubbly-shape flex items-center justify-between" style={{ padding: '1.5rem 2rem', borderLeft: '5px solid var(--color-primary)' }}>
+            <div key={notice.id} className="glass-panel bubbly-shape flex items-center justify-between flex-wrap gap-md" style={{ padding: '1.5rem', borderLeft: '5px solid var(--color-primary)' }}>
               <div className="notice-content">
                 <h3 className="text-dark" style={{ marginBottom: '0.5rem' }}>{notice.title}</h3>
                 <div className="flex items-center gap-sm text-sm text-light">

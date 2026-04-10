@@ -9,7 +9,7 @@ const Contact = () => {
         <p className="text-light">We'd love to hear from you!</p>
       </div>
 
-      <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
+      <div className="responsive-grid">
         
         {/* Contact Info */}
         <div className="flex flex-col gap-lg">

@@ -9,7 +9,7 @@ const Admission = () => {
         <p className="text-light">Join the Krishna Play Way School family</p>
       </div>
 
-      <div className="grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }}>
+      <div className="responsive-grid">
         <div className="bg-surface bubbly-shape" style={{ padding: '2rem', boxShadow: 'var(--shadow-sm)' }}>
           <h2 className="mb-md" style={{ marginBottom: '1.5rem', color: 'var(--color-primary)' }}>Eligibility & Process</h2>
           <ul className="flex flex-col gap-md">

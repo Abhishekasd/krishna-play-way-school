@@ -57,7 +57,7 @@ const Gallery = () => {
       ) : filtered.length === 0 ? (
         <p className="text-center text-light">No images available for this category.</p>
       ) : (
-        <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+        <div className="responsive-grid">
           {filtered.map(img => {
             const url = supabase.storage.from('gallery').getPublicUrl(img.name).data.publicUrl;
             return (

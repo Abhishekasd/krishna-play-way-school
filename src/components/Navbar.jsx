@@ -37,10 +37,10 @@ const Navbar = () => {
       <nav className="navbar container flex justify-between items-center">
         <Link to="/" className="brand flex items-center gap-sm">
           {/* Logo */}
-          <img src="/logo.jpg" alt="Krishna Play Way School Logo" className="logo-img" style={{height: '40px'}} />
+          <img src="/logo.jpg" alt="Krishna Play Way School Logo" className="logo-img" />
           <div className="brand-text">
-            <h1 style={{fontSize: '1.2rem'}}>Krishna</h1>
-            <p style={{fontSize: '0.8rem'}}>Play Way School</p>
+            <h1>Krishna</h1>
+            <p>Play Way School</p>
           </div>
         </Link>
 

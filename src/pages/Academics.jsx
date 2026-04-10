@@ -9,7 +9,7 @@ const Academics = () => {
         <p className="text-light">Our curriculum and approach to learning</p>
       </div>
 
-      <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+      <div className="responsive-grid">
         <div className="glass-panel bubbly-shape" style={{ padding: '2rem', textAlign: 'center' }}>
           <BookOpen size={48} className="text-primary mb-md" style={{ margin: '0 auto 1rem' }} />
           <h3>Curriculum</h3>

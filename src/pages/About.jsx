@@ -11,7 +11,7 @@ const About = () => {
         </motion.div>
       </section>
 
-      <section className="container mt-lg" style={{ padding: '3rem 1.5rem' }}>
+      <section className="container mt-lg" style={{ padding: '3rem 1rem' }}>
         <div className="grid flex flex-col gap-lg" style={{ maxWidth: '800px', margin: '0 auto' }}>
           
           <div className="glass-panel p-md bubbly-shape" style={{ padding: '2rem' }}>

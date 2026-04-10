@@ -101,5 +101,17 @@
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+    text-align: center;
+  }
+  .footer-brand, .footer h3::after {
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .footer h3::after {
+    transform: translateX(-50%);
+  }
+  .footer-contact li {
+    justify-content: center;
   }
 }

@@ -210,10 +210,10 @@ const Admin = () => {
   }
 
   return (
-    <div className="container" style={{ padding: '2rem 1.5rem', display: 'flex', gap: '2rem', minHeight: '60vh' }}>
+    <div className="container admin-layout" style={{ padding: '2rem 1rem', minHeight: '60vh' }}>
       
       {/* Sidebar */}
-      <div className="admin-sidebar glass-panel bubbly-shape flex-shrink-0" style={{ width: '250px', padding: '1.5rem', height: 'fit-content' }}>
+      <div className="admin-sidebar glass-panel bubbly-shape" style={{ padding: '1.5rem', height: 'fit-content' }}>
         <h3 className="mb-md text-primary">Admin Panel</h3>
         <ul className="flex flex-col gap-sm">
           <li>
@@ -309,7 +309,7 @@ const Admin = () => {
           {activeTab === 'timetable' && (
             <div>
               <h2 className="mb-md">Manage Timetable</h2>
-              <form className="flex gap-sm mb-lg flex-wrap items-end" onSubmit={handleAddTimetableRow}>
+              <form className="flex gap-sm mb-lg flex-wrap items-end" onSubmit={handleAddTimetableRow} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem' }}>
                 <div className="flex flex-col gap-sm">
                   <label className="text-sm font-bold">Class</label>
                   <select value={ttClass} onChange={e=>setTtClass(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
@@ -405,7 +405,7 @@ const Admin = () => {
                 </label>
               </div>
 
-              <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1rem' }}>
+              <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '1rem' }}>
                 {images.map(img => (
                   <div key={img.name} className="bubbly-shape bg-surface" style={{ overflow: 'hidden', border: '1px solid #e2e8f0', position: 'relative' }}>
                     <div style={{ height: '120px', width: '100%', backgroundColor: '#f7fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
