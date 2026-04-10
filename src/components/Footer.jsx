@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container footer-grid">
         <div className="footer-col">
           <div className="footer-brand flex items-center gap-sm">
-             <img src="/logo.jpg" alt="Krishna Play Way School Logo" className="logo-img" style={{height: '40px', backgroundColor: 'white', borderRadius: '50%', padding: '2px'}} />
+             <img src="/logo.jpg" alt="Krishna Play Way School Logo" className="logo-img" style={{height: '60px', backgroundColor: 'white', borderRadius: '50%', padding: '2px'}} />
              <div>
                 <h2 style={{fontSize: '1.2rem'}}>Krishna</h2>
                 <p style={{fontSize: '0.8rem'}}>Play Way School</p>
