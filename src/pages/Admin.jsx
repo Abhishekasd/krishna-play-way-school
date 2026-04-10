@@ -134,6 +134,21 @@ const Admin = () => {
     }
   };
 
+  const handleClearGallery = async () => {
+    if (!window.confirm('Are you sure you want to delete ALL images? This cannot be undone.')) return;
+    
+    setUploading(true);
+    const { data, error } = await supabase.storage.from('gallery').list('');
+    
+    if (data && data.length > 0) {
+      const filesToRemove = data.map(f => f.name);
+      await supabase.storage.from('gallery').remove(filesToRemove);
+      fetchImages();
+      alert('Gallery cleared successfully!');
+    }
+    setUploading(false);
+  };
+
   // --- Timetable Handlers ---
   const fetchTimetable = async () => {
     const { data } = await supabase.from('timetable').select('*').order('sort_order', { ascending: true }).order('created_at', { ascending: true });
@@ -403,6 +418,14 @@ const Admin = () => {
                   {uploading ? 'Uploading...' : 'Upload Image'}
                   <input type="file" accept="image/*" onChange={handleUploadImage} disabled={uploading} style={{ display: 'none' }} />
                 </label>
+                <button 
+                  onClick={handleClearGallery} 
+                  className="top-btn" 
+                  style={{ backgroundColor: 'red', color: 'white', padding: '0.8rem 1.5rem' }}
+                  disabled={uploading}
+                >
+                  Clear All Gallery
+                </button>
               </div>
 
               <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '1rem' }}>
