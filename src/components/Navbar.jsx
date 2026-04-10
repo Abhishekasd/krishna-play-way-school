@@ -25,7 +25,7 @@ const Navbar = () => {
       <div className="top-bar">
         <div className="container flex justify-between items-center top-bar-content">
           <div className="contact-info flex items-center gap-md">
-            <span className="flex items-center gap-sm text-sm"><Phone size={14} /> +91 9876543210</span>
+            <span className="flex items-center gap-sm text-sm"><Phone size={14} /> +91 63989 21861</span>
             <span className="flex items-center gap-sm text-sm"><Mail size={14} /> info@krishnaplaywayschool.com</span>
           </div>
           <div className="quick-links">
