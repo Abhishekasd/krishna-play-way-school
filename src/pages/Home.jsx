@@ -1,7 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="home-page">
       <section className="hero bg-secondary text-center" style={{ padding: '6rem 1rem', color: 'var(--color-always-light)' }}>
@@ -13,7 +16,13 @@ const Home = () => {
         >
           <h1 style={{ color: 'var(--color-always-light)', marginBottom: '1rem' }}>Welcome to Krishna Play Way School</h1>
           <p style={{ marginBottom: '2rem' }}>Where Every Child Blossoms</p>
-          <button className="top-btn" style={{ padding: '1rem 2.5rem' }}>Enroll Now</button>
+          <button 
+            className="top-btn" 
+            style={{ padding: '1rem 2.5rem' }}
+            onClick={() => navigate('/admission')}
+          >
+            Enroll Now
+          </button>
         </motion.div>
       </section>
 
