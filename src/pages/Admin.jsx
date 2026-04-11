@@ -25,7 +25,12 @@ const Admin = () => {
   // Timetable State
   const [timetable, setTimetable] = useState([]);
   const [ttClass, setTtClass] = useState('Pre-Nursery');
-  // ... (rest of timetable state)
+  const [ttTimeSlot, setTtTimeSlot] = useState('');
+  const [ttMonday, setTtMonday] = useState('');
+  const [ttTuesday, setTtTuesday] = useState('');
+  const [ttWednesday, setTtWednesday] = useState('');
+  const [ttThursday, setTtThursday] = useState('');
+  const [ttFriday, setTtFriday] = useState('');
 
   // Inquiries State
   const [inquiries, setInquiries] = useState([]);
