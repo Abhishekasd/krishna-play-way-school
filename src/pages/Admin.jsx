@@ -311,38 +311,38 @@ const Admin = () => {
           <li>
             <button 
               onClick={() => setActiveTab('dashboard')}
-              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'dashboard' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'dashboard' ? 'white' : 'var(--color-text-dark)' }}
+              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'dashboard' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'dashboard' ? 'white' : 'var(--color-text-main)' }}
             >Dashboard</button>
           </li>
           <li>
             <button 
               onClick={() => setActiveTab('notices')}
-              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'notices' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'notices' ? 'white' : 'var(--color-text-dark)' }}
+              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'notices' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'notices' ? 'white' : 'var(--color-text-main)' }}
             >Manage Notices</button>
           </li>
           <li>
             <button 
               onClick={() => setActiveTab('timetable')}
-              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'timetable' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'timetable' ? 'white' : 'var(--color-text-dark)' }}
+              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'timetable' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'timetable' ? 'white' : 'var(--color-text-main)' }}
             >Manage Timetable</button>
           </li>
           <li>
             <button 
               onClick={() => setActiveTab('gallery')}
-              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'gallery' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'gallery' ? 'white' : 'var(--color-text-dark)' }}
+              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'gallery' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'gallery' ? 'white' : 'var(--color-text-main)' }}
             >Manage Gallery</button>
           </li>
           <li>
             <button 
               onClick={() => setActiveTab('messages')}
-              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'messages' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'messages' ? 'white' : 'var(--color-text-dark)' }}
+              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'messages' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'messages' ? 'white' : 'var(--color-text-main)' }}
             >Inquiries & Messages</button>
           </li>
           {userRole === 'super_admin' && (
             <li>
               <button 
                 onClick={() => setActiveTab('manage-admins')}
-                style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'manage-admins' ? 'var(--color-accent)' : 'transparent', color: activeTab === 'manage-admins' ? 'white' : 'var(--color-text-dark)' }}
+                style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'manage-admins' ? 'var(--color-accent)' : 'transparent', color: activeTab === 'manage-admins' ? 'white' : 'var(--color-text-main)' }}
               >Manage Admins 🛡️</button>
             </li>
           )}
@@ -608,7 +608,7 @@ const Admin = () => {
                   <div key={adm.id} className="flex justify-between items-center bg-surface" style={{ padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px' }}>
                     <div>
                       <strong>{adm.email}</strong>
-                      <span className="ml-md text-xs font-bold px-sm py-xs bubbly-shape" style={{ backgroundColor: adm.role === 'super_admin' ? 'gold' : '#edf2f7', color: adm.role === 'super_admin' ? 'black' : 'var(--color-text-dark)' }}>
+                      <span className="ml-md text-xs font-bold px-sm py-xs bubbly-shape" style={{ backgroundColor: adm.role === 'super_admin' ? 'gold' : '#edf2f7', color: adm.role === 'super_admin' ? 'black' : 'var(--color-text-main)' }}>
                         {adm.role.toUpperCase()}
                       </span>
                     </div>

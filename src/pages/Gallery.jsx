@@ -40,8 +40,8 @@ const Gallery = () => {
             onClick={() => setActiveCategory(cat)}
             style={{ 
               backgroundColor: activeCategory === cat ? 'var(--color-secondary)' : 'var(--color-surface)',
-              color: activeCategory === cat ? 'white' : 'var(--color-text-dark)',
-              border: '1px solid #e2e8f0',
+              color: activeCategory === cat ? 'var(--color-always-light)' : 'var(--color-text-muted)',
+              border: '1px solid var(--color-border)',
               padding: '0.4rem 1.2rem',
               borderRadius: '9999px',
               fontWeight: 'bold',

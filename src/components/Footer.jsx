@@ -5,7 +5,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer bg-text-dark text-white">
+    <footer className="footer">
       <div className="container footer-grid">
         <div className="footer-col">
           <div className="footer-brand flex items-center gap-sm">

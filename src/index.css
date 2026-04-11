@@ -2,15 +2,23 @@
 
 :root {
   /* Play Way Color Palette */
-  --color-primary: #FFB347; /* Warm bright yellow/orange (sunshine) */
-  --color-secondary: #4BA3E3; /* Playful sky blue */
-  --color-tertiary: #FF6B6B; /* Soft red for accents */
-  --color-accent: #88D49E; /* Mint green for success/positive actions */
+  --color-primary: #FFB347; 
+  --color-secondary: #4BA3E3; 
+  --color-tertiary: #FF6B6B; 
+  --color-accent: #88D49E; 
   
-  --color-background: #F9FAFB; /* Off-white for background */
+  /* Theme-aware Backgrounds */
+  --color-background: #F9FAFB; 
   --color-surface: #FFFFFF;
-  --color-text-dark: #2D3748; /* Soft dark for text readability */
-  --color-text-light: #718096;
+  --color-surface-mixed: #F3F4F6;
+  
+  /* Theme-aware Text (Flippers) */
+  --color-text-main: #1F2937;  /* High contrast dark for text */
+  --color-text-muted: #6B7280; /* Muted gray */
+  
+  /* Constants (Colors that don't flip) */
+  --color-always-dark: #1F2937;
+  --color-always-light: #FFFFFF;
   --color-border: #e2e8f0;
   
   --color-primary-hover: #FFA21A;
@@ -19,7 +27,7 @@
   /* Typography */
   --font-main: 'Nunito', sans-serif;
   
-  /* Fluid Typography (Responsive by default) */
+  /* Fluid Typography */
   --text-h1: clamp(2rem, 5vw + 1rem, 3.5rem);
   --text-h2: clamp(1.5rem, 4vw + 1rem, 2.5rem);
   --text-h3: clamp(1.2rem, 3vw + 1rem, 1.8rem);
@@ -36,24 +44,25 @@
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 15px 30px -5px rgba(75, 163, 227, 0.2);
 
-  --shadow-hover: 0 15px 30px -5px rgba(75, 163, 227, 0.2);
-
   --transition-fast: 0.2s ease-in-out;
   --transition-normal: 0.3s ease-in-out;
 }
 
 [data-theme='dark'] {
-  --color-background: #111827; /* Dark charcoal/blue */
-  --color-surface: #1F2937;    /* Slate blue/dark */
-  --color-text-dark: #F9FAFB;  /* Near white */
-  --color-text-light: #9CA3AF; /* Muted gray for dark mode */
-  --color-border: #374151;
+  --color-background: #0F172A; /* Slate 900 */
+  --color-surface: #1E293B;    /* Slate 800 */
+  --color-surface-mixed: #334155;
+  
+  --color-text-main: #F8FAFC;  /* Slate 50 */
+  --color-text-muted: #94A3B8; /* Slate 400 */
+  
+  --color-border: #334155;
   
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   
-  --glass-bg: rgba(31, 41, 55, 0.8);
+  --glass-bg: rgba(30, 41, 59, 0.8);
   --glass-border: rgba(255, 255, 255, 0.1);
 }
 
@@ -66,7 +75,7 @@
 body {
   font-family: var(--font-main);
   background-color: var(--color-background);
-  color: var(--color-text-dark);
+  color: var(--color-text-main);
   font-size: var(--text-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -125,6 +134,9 @@ h3 { font-size: var(--text-h3); }
 .gap-md { gap: 1rem; }
 .gap-lg { gap: 2rem; }
 
+.text-always-light { color: var(--color-always-light) !important; }
+.text-always-dark { color: var(--color-always-dark) !important; }
+
 /* Responsive Grid */
 .responsive-grid {
   display: grid;
@@ -177,10 +189,10 @@ h3 { font-size: var(--text-h3); }
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--glass-bg, rgba(255, 255, 255, 0.8));
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.5));
   box-shadow: var(--shadow-md);
 }
 

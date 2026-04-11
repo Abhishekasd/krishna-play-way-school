@@ -1,7 +1,12 @@
 .footer {
-  background-color: var(--color-text-dark);
+  background-color: var(--color-always-dark);
+  color: var(--color-always-light);
   padding: 4rem 0 2rem;
   margin-top: 4rem;
+}
+
+[data-theme='dark'] .footer {
+  background-color: #0b0f1a; /* Even darker for dark theme footer */
 }
 
 .footer-grid {
@@ -10,16 +15,18 @@
   gap: 2rem;
 }
 
-.footer-brand h2 {
+.footer-brand h2, .footer-title {
   color: var(--color-primary);
   margin: 0;
   line-height: 1;
+  font-size: 1.5rem;
 }
 
-.footer-brand p {
-  color: white;
+.footer-brand p, .footer-brand-p {
+  color: var(--color-always-light);
   font-weight: 700;
   letter-spacing: 1px;
+  font-size: 0.9rem;
 }
 
 .footer-desc {
@@ -35,7 +42,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-always-light);
   transition: var(--transition-fast);
 }
 
@@ -45,7 +52,7 @@
 }
 
 .footer h3 {
-  color: white;
+  color: var(--color-always-light);
   margin-bottom: 1.5rem;
   font-size: 1.2rem;
   position: relative;

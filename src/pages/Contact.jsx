@@ -42,7 +42,7 @@ const Contact = () => {
         {/* Contact Info */}
         <div className="flex flex-col gap-lg">
           <div className="glass-panel bubbly-shape flex items-center gap-md" style={{ padding: '1.5rem' }}>
-            <div className="bg-primary text-white bubbly-shape flex items-center justify-center flex-shrink-0" style={{ width: '50px', height: '50px' }}>
+            <div className="bg-primary text-always-light bubbly-shape flex items-center justify-center flex-shrink-0" style={{ width: '50px', height: '50px' }}>
               <MapPin />
             </div>
             <div>
@@ -52,7 +52,7 @@ const Contact = () => {
           </div>
           
           <div className="glass-panel bubbly-shape flex items-center gap-md" style={{ padding: '1.5rem' }}>
-            <div className="bg-secondary text-white bubbly-shape flex items-center justify-center flex-shrink-0" style={{ width: '50px', height: '50px' }}>
+            <div className="bg-secondary text-always-light bubbly-shape flex items-center justify-center flex-shrink-0" style={{ width: '50px', height: '50px' }}>
               <Phone />
             </div>
             <div>
@@ -62,7 +62,7 @@ const Contact = () => {
           </div>
           
           <div className="glass-panel bubbly-shape flex items-center gap-md" style={{ padding: '1.5rem' }}>
-            <div className="bg-tertiary text-white bubbly-shape flex items-center justify-center flex-shrink-0" style={{ width: '50px', height: '50px' }}>
+            <div className="bg-tertiary text-always-light bubbly-shape flex items-center justify-center flex-shrink-0" style={{ width: '50px', height: '50px' }}>
               <Mail />
             </div>
             <div>
@@ -90,7 +90,7 @@ const Contact = () => {
                   placeholder="Your Name" 
                   value={formData.name}
                   onChange={e => setFormData({...formData, name: e.target.value})}
-                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} 
+                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} 
                 />
               </div>
               <div className="form-group flex flex-col gap-sm">
@@ -100,7 +100,7 @@ const Contact = () => {
                   placeholder="Your Contact Details" 
                   value={formData.contact}
                   onChange={e => setFormData({...formData, contact: e.target.value})}
-                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} 
+                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} 
                 />
               </div>
               <div className="form-group flex flex-col gap-sm">
@@ -111,7 +111,7 @@ const Contact = () => {
                   rows="4" 
                   value={formData.message}
                   onChange={e => setFormData({...formData, message: e.target.value})}
-                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}
                 ></textarea>
               </div>
               {status === 'error' && <p style={{ color: 'red', fontSize: '0.8rem' }}>Something went wrong. Please try again.</p>}

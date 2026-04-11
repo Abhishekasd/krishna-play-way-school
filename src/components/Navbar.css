@@ -8,7 +8,7 @@
 
 .top-bar {
   background-color: var(--color-secondary);
-  color: white;
+  color: var(--color-always-light);
   padding: 0.5rem 0;
 }
 
@@ -18,7 +18,7 @@
 
 .top-btn {
   background-color: var(--color-primary);
-  color: var(--color-text-dark);
+  color: var(--color-always-dark);
   padding: 0.2rem 0.8rem;
   border-radius: var(--border-radius-pill);
   font-weight: 700;
@@ -55,7 +55,7 @@
 .brand-text p {
   font-size: clamp(0.6rem, 1.5vw, 0.8rem);
   margin: 0;
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -66,7 +66,7 @@
 
 .nav-link {
   font-weight: 600;
-  color: var(--color-text-dark);
+  color: var(--color-text-main);
   position: relative;
   transition: var(--transition-fast);
 }
@@ -101,18 +101,18 @@
   left: 0;
   width: 100%;
   padding: 1rem 0;
-  border-top: 1px solid #edf2f7;
+  border-top: 1px solid var(--color-border);
 }
 
 .mobile-link {
   display: block;
   padding: 0.8rem 1.5rem;
   font-weight: 600;
-  color: var(--color-text-dark);
+  color: var(--color-text-main);
 }
 
 .mobile-link:hover, .mobile-link.active {
-  background-color: #ebf8ff;
+  background-color: var(--color-surface-mixed);
   color: var(--color-secondary);
 }
 

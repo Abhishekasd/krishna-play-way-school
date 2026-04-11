@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 const Home = () => {
   return (
     <div className="home-page">
-      <section className="hero bg-secondary text-center" style={{ padding: '6rem 1rem', color: 'white' }}>
+      <section className="hero bg-secondary text-center" style={{ padding: '6rem 1rem', color: 'var(--color-always-light)' }}>
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="container"
         >
-          <h1 style={{ color: 'white', marginBottom: '1rem' }}>Welcome to Krishna Play Way School</h1>
+          <h1 style={{ color: 'var(--color-always-light)', marginBottom: '1rem' }}>Welcome to Krishna Play Way School</h1>
           <p style={{ marginBottom: '2rem' }}>Where Every Child Blossoms</p>
           <button className="top-btn" style={{ padding: '1rem 2.5rem' }}>Enroll Now</button>
         </motion.div>

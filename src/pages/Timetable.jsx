@@ -42,8 +42,8 @@ const Timetable = () => {
             className={`top-btn`}
             style={{ 
               backgroundColor: selectedClass === c ? 'var(--color-primary)' : 'var(--color-surface)',
-              color: selectedClass === c ? 'var(--color-text-dark)' : 'var(--color-text-light)',
-              border: '1px solid #e2e8f0',
+              color: selectedClass === c ? 'var(--color-always-light)' : 'var(--color-text-muted)',
+              border: '1px solid var(--color-border)',
               padding: '0.4rem 1.2rem',
             }}
           >
@@ -60,7 +60,7 @@ const Timetable = () => {
         ) : (
           <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'center' }}>
             <thead>
-              <tr style={{ backgroundColor: 'var(--color-secondary)', color: 'white' }}>
+              <tr style={{ backgroundColor: 'var(--color-secondary)', color: 'var(--color-always-light)' }}>
                 <th style={{ padding: '1rem', borderRadius: '10px 0 0 0' }}>Time</th>
                 <th style={{ padding: '1rem' }}>Monday</th>
                 <th style={{ padding: '1rem' }}>Tuesday</th>
@@ -78,7 +78,7 @@ const Timetable = () => {
                   <tr key={row.id} style={{ borderBottom: '1px solid #edf2f7' }}>
                     <td style={{ padding: '1rem', fontWeight: 'bold' }}>{row.time_slot}</td>
                     {isHighlight ? (
-                      <td style={{ padding: '1rem', backgroundColor: '#fcf0ed' }} colSpan={5}>{row.monday}</td>
+                      <td style={{ padding: '1rem', backgroundColor: 'rgba(255, 179, 71, 0.1)' }} colSpan={5}>{row.monday}</td>
                     ) : (
                       <>
                         <td style={{ padding: '1rem' }}>{row.monday}</td>
