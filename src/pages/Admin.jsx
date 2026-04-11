@@ -10,6 +10,7 @@ const Admin = () => {
   const [authError, setAuthError] = useState('');
 
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [userRole, setUserRole] = useState(null); // 'super_admin' or 'admin' or null
   
   // Notices State
   const [notices, setNotices] = useState([]);
@@ -32,12 +33,15 @@ const Admin = () => {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session) fetchUserRole(session.user.email);
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      if (session) fetchUserRole(session.user.email);
+      else setUserRole(null);
     });
 
     return () => subscription.unsubscribe();
@@ -49,6 +53,7 @@ const Admin = () => {
       if (activeTab === 'gallery') fetchImages();
       if (activeTab === 'timetable') fetchTimetable();
       if (activeTab === 'messages') fetchInquiries();
+      if (activeTab === 'manage-admins') fetchAllAdmins();
     }
   }, [session, activeTab]);
 
@@ -200,6 +205,59 @@ const Admin = () => {
     }
   };
 
+  // --- Admin Management Handlers (Super Admin Only) ---
+  const [allAdmins, setAllAdmins] = useState([]);
+  const [newAdminEmail, setNewAdminEmail] = useState('');
+
+  const fetchUserRole = async (userEmail) => {
+    try {
+      console.log('Fetching role for:', userEmail);
+      const { data, error } = await supabase
+        .from('user_roles')
+        .select('role')
+        .ilike('email', userEmail) // Use ilike for case-insensitive match
+        .single();
+      
+      if (error) {
+        console.error('Supabase role error:', error);
+      }
+      if (data) {
+        console.log('Role found:', data.role);
+        setUserRole(data.role);
+      } else {
+        console.warn('No role found in user_roles table for this email.');
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching role:', err);
+    }
+  };
+
+  const fetchAllAdmins = async () => {
+    const { data } = await supabase.from('user_roles').select('*').order('created_at', { ascending: false });
+    if (data) setAllAdmins(data);
+  };
+
+  const handleAddAdmin = async (e) => {
+    e.preventDefault();
+    if (!newAdminEmail.trim()) return;
+    const { error } = await supabase.from('user_roles').insert([{ email: newAdminEmail, role: 'admin' }]);
+    if (!error) {
+      setNewAdminEmail('');
+      fetchAllAdmins();
+    } else {
+      alert('Error adding admin: ' + error.message);
+    }
+  };
+
+  const handleDeleteAdmin = async (emailToDelete) => {
+    if (emailToDelete === session.user.email) return alert('You cannot delete yourself!');
+    if (!window.confirm(`Remove admin privileges for ${emailToDelete}?`)) return;
+    const { error } = await supabase.from('user_roles').delete().eq('email', emailToDelete);
+    if (!error) {
+      fetchAllAdmins();
+    }
+  };
+
   if (!session) {
     return (
       <div className="container flex justify-center items-center" style={{ minHeight: '60vh', padding: '4rem 1.5rem' }}>
@@ -274,6 +332,14 @@ const Admin = () => {
               style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'messages' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'messages' ? 'white' : 'var(--color-text-dark)' }}
             >Inquiries & Messages</button>
           </li>
+          {userRole === 'super_admin' && (
+            <li>
+              <button 
+                onClick={() => setActiveTab('manage-admins')}
+                style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'manage-admins' ? 'var(--color-accent)' : 'transparent', color: activeTab === 'manage-admins' ? 'white' : 'var(--color-text-dark)' }}
+              >Manage Admins 🛡️</button>
+            </li>
+          )}
           <li>
             <button 
               onClick={handleLogout}
@@ -291,7 +357,20 @@ const Admin = () => {
             <div>
               <h2 className="mb-md">Welcome, Admin</h2>
               <p className="text-light">Connected to Supabase Backend. You can now manage real site content.</p>
-              <p className="text-light mt-sm">Currently logged in as: {session.user.email}</p>
+              <div className="flex flex-col gap-xs mt-md">
+                <p className="text-sm">Logged in as: <strong>{session.user.email}</strong></p>
+                <p className="text-sm">
+                  Access Level: 
+                  <span className="ml-sm px-sm py-xs bubbly-shape text-xs font-bold" style={{ backgroundColor: userRole ? 'var(--color-secondary)' : '#feb2b2', color: 'white' }}>
+                    {userRole ? userRole.toUpperCase().replace('_', ' ') : 'VERIFYING...'}
+                  </span>
+                </p>
+              </div>
+              {!userRole && (
+                <div className="mt-lg p-md bubbly-shape bg-light-gray text-sm italic" style={{ border: '1px dashed #cbd5e0' }}>
+                  Tip: If your role says "VERIFYING" after a refresh, please check the browser console (F12) for errors or ensure your email is in the 'user_roles' table.
+                </div>
+              )}
             </div>
           )}
 
@@ -497,6 +576,38 @@ const Admin = () => {
                   </div>
                 ))}
                 {inquiries.length === 0 && <p className="text-light text-center py-lg">No messages or inquiries found.</p>}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'manage-admins' && userRole === 'super_admin' && (
+            <div>
+              <h2 className="mb-md">Superior Admin Dashboard</h2>
+              <p className="text-light mb-lg">Manage who can access and edit the school website.</p>
+              
+              <form className="flex gap-md mb-lg" onSubmit={handleAddAdmin}>
+                <input 
+                  type="email" required placeholder="New Admin Email..."
+                  value={newAdminEmail} onChange={e => setNewAdminEmail(e.target.value)}
+                  style={{ flex: 1, padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                />
+                <button type="submit" className="top-btn" style={{ padding: '0.8rem 1.5rem', backgroundColor: 'var(--color-accent)' }}>Authorize Admin</button>
+              </form>
+
+              <div className="flex flex-col gap-sm">
+                {allAdmins.map(adm => (
+                  <div key={adm.id} className="flex justify-between items-center bg-surface" style={{ padding: '1rem', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+                    <div>
+                      <strong>{adm.email}</strong>
+                      <span className="ml-md text-xs font-bold px-sm py-xs bubbly-shape" style={{ backgroundColor: adm.role === 'super_admin' ? 'gold' : '#edf2f7', color: adm.role === 'super_admin' ? 'black' : 'var(--color-text-dark)' }}>
+                        {adm.role.toUpperCase()}
+                      </span>
+                    </div>
+                    {adm.role !== 'super_admin' && (
+                      <button onClick={() => handleDeleteAdmin(adm.email)} style={{ color: 'red', fontSize: '0.9rem' }}>Revoke Access</button>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           )}
