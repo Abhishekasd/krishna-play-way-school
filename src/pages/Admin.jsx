@@ -231,6 +231,7 @@ const Admin = () => {
         setUserRole(data.role);
       } else {
         console.warn('No role found in user_roles table for this email.');
+        setUserRole('guest'); // Set to guest if not found
       }
     } catch (err) {
       console.error('Unexpected error fetching role:', err);
@@ -360,20 +361,23 @@ const Admin = () => {
           
           {activeTab === 'dashboard' && (
             <div>
-              <h2 className="mb-md">Welcome, Admin</h2>
-              <p className="text-light">Connected to Supabase Backend. You can now manage real site content.</p>
+              <h2 className="mb-md">Welcome to your Dashboard</h2>
+              <p className="text-light">Manage your school content, inquiries, and messages from this central hub.</p>
               <div className="flex flex-col gap-xs mt-md">
                 <p className="text-sm">Logged in as: <strong>{session.user.email}</strong></p>
                 <p className="text-sm">
                   Access Level: 
-                  <span className="ml-sm px-sm py-xs bubbly-shape text-xs font-bold" style={{ backgroundColor: userRole ? 'var(--color-secondary)' : '#feb2b2', color: 'white' }}>
-                    {userRole ? userRole.toUpperCase().replace('_', ' ') : 'VERIFYING...'}
+                  <span className="ml-sm px-sm py-xs bubbly-shape text-xs font-bold" style={{ 
+                    backgroundColor: userRole === 'super_admin' ? 'gold' : (userRole === 'admin' ? 'var(--color-secondary)' : '#feb2b2'), 
+                    color: userRole === 'super_admin' ? 'black' : 'white' 
+                  }}>
+                    {userRole ? (userRole === 'guest' ? 'ACCESS PENDING' : userRole.toUpperCase().replace('_', ' ')) : 'VERIFYING...'}
                   </span>
                 </p>
               </div>
-              {!userRole && (
-                <div className="mt-lg p-md bubbly-shape bg-light-gray text-sm italic" style={{ border: '1px dashed #cbd5e0' }}>
-                  Tip: If your role says "VERIFYING" after a refresh, please check the browser console (F12) for errors or ensure your email is in the 'user_roles' table.
+              {userRole === 'guest' && (
+                <div className="mt-lg p-md bubbly-shape bg-light-gray text-sm italic" style={{ border: '1px solid #feb2b2', backgroundColor: '#fff5f5' }}>
+                  <strong>Note:</strong> Your account is currently pending authorization. Please contact the Superior Admin to activate your dashboard access.
                 </div>
               )}
             </div>
