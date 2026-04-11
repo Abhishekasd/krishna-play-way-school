@@ -24,12 +24,10 @@ const Admin = () => {
   // Timetable State
   const [timetable, setTimetable] = useState([]);
   const [ttClass, setTtClass] = useState('Pre-Nursery');
-  const [ttTimeSlot, setTtTimeSlot] = useState('');
-  const [ttMonday, setTtMonday] = useState('');
-  const [ttTuesday, setTtTuesday] = useState('');
-  const [ttWednesday, setTtWednesday] = useState('');
-  const [ttThursday, setTtThursday] = useState('');
-  const [ttFriday, setTtFriday] = useState('');
+  // ... (rest of timetable state)
+
+  // Inquiries State
+  const [inquiries, setInquiries] = useState([]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -50,6 +48,7 @@ const Admin = () => {
       if (activeTab === 'notices') fetchNotices();
       if (activeTab === 'gallery') fetchImages();
       if (activeTab === 'timetable') fetchTimetable();
+      if (activeTab === 'messages') fetchInquiries();
     }
   }, [session, activeTab]);
 
@@ -187,6 +186,20 @@ const Admin = () => {
     }
   };
 
+  // --- Inquiry Handlers ---
+  const fetchInquiries = async () => {
+    const { data } = await supabase.from('inquiries').select('*').order('created_at', { ascending: false });
+    if (data) setInquiries(data);
+  };
+
+  const handleDeleteInquiry = async (id) => {
+    if (!window.confirm('Mark this message as read and delete it?')) return;
+    const { error } = await supabase.from('inquiries').delete().eq('id', id);
+    if (!error) {
+      setInquiries(inquiries.filter(i => i.id !== id));
+    }
+  };
+
   if (!session) {
     return (
       <div className="container flex justify-center items-center" style={{ minHeight: '60vh', padding: '4rem 1.5rem' }}>
@@ -254,6 +267,12 @@ const Admin = () => {
               onClick={() => setActiveTab('gallery')}
               style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'gallery' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'gallery' ? 'white' : 'var(--color-text-dark)' }}
             >Manage Gallery</button>
+          </li>
+          <li>
+            <button 
+              onClick={() => setActiveTab('messages')}
+              style={{ width: '100%', textAlign: 'left', padding: '0.8rem', borderRadius: '8px', backgroundColor: activeTab === 'messages' ? 'var(--color-secondary)' : 'transparent', color: activeTab === 'messages' ? 'white' : 'var(--color-text-dark)' }}
+            >Inquiries & Messages</button>
           </li>
           <li>
             <button 
@@ -450,6 +469,37 @@ const Admin = () => {
             </div>
           )}
 
+          {activeTab === 'messages' && (
+            <div>
+              <h2 className="mb-md">Inquiries & Messages</h2>
+              <div className="flex flex-col gap-md">
+                {inquiries.map(item => (
+                  <div key={item.id} className="bubbly-shape bg-surface" style={{ padding: '1.5rem', border: '1px solid #e2e8f0', position: 'relative' }}>
+                    <div className="flex justify-between items-start mb-sm">
+                      <span className="text-xs font-bold px-sm py-xs bubbly-shape" style={{ backgroundColor: item.type === 'Inquiry' ? 'var(--color-accent)' : 'var(--color-secondary)', color: 'white' }}>
+                        {item.type}
+                      </span>
+                      <button onClick={() => handleDeleteInquiry(item.id)} style={{ color: 'red', fontSize: '0.8rem' }}>Delete</button>
+                    </div>
+                    <div className="flex flex-col gap-xs">
+                      <strong>{item.name}</strong>
+                      {item.parent_name && <p className="text-sm">Parent: {item.parent_name}</p>}
+                      <p className="text-sm">Contact: <strong>{item.contact}</strong></p>
+                      {item.message && (
+                        <div className="mt-sm p-sm bg-light-gray bubbly-shape italic text-sm" style={{ backgroundColor: '#f7fafc', borderLeft: '3px solid var(--color-secondary)' }}>
+                          "{item.message}"
+                        </div>
+                      )}
+                      <div className="text-xs text-light mt-sm text-right">
+                        {new Date(item.created_at).toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {inquiries.length === 0 && <p className="text-light text-center py-lg">No messages or inquiries found.</p>}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

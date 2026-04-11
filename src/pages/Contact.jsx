@@ -1,7 +1,35 @@
-import React from 'react';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Phone, Mail, Send, CheckCircle2, Loader2 } from 'lucide-react';
+import { supabase } from '../supabase';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    contact: '',
+    message: ''
+  });
+  const [status, setStatus] = useState('idle');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.contact || !formData.message) return;
+    
+    setStatus('loading');
+    const { error } = await supabase.from('inquiries').insert([{
+      type: 'Contact',
+      name: formData.name,
+      contact: formData.contact,
+      message: formData.message
+    }]);
+
+    if (!error) {
+      setStatus('success');
+      setFormData({ name: '', contact: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } else {
+      setStatus('error');
+    }
+  };
   return (
     <div className="container" style={{ padding: '4rem 1.5rem' }}>
       <div className="text-center mb-lg" style={{ marginBottom: '3rem' }}>
@@ -44,27 +72,56 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Contact Form */}
-        <div className="glass-panel bubbly-shape" style={{ padding: '2rem' }}>
-          <h2 className="mb-md" style={{ marginBottom: '1.5rem' }}>Send a Message</h2>
-          <form className="flex flex-col gap-md" onSubmit={(e) => e.preventDefault()}>
-            <div className="form-group flex flex-col gap-sm">
-              <label>Name</label>
-              <input type="text" placeholder="Your Name" style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
-            </div>
-            <div className="form-group flex flex-col gap-sm">
-              <label>Email / Phone</label>
-              <input type="text" placeholder="Your Contact Details" style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
-            </div>
-            <div className="form-group flex flex-col gap-sm">
-              <label>Message</label>
-              <textarea placeholder="How can we help?" rows="4" style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}></textarea>
-            </div>
-            <button className="top-btn flex items-center justify-center gap-sm mt-md" style={{ padding: '1rem', width: '100%' }}>
-              <Send size={18} /> Send Message
-            </button>
-          </form>
-        </div>
+        {status === 'success' ? (
+          <div className="glass-panel bubbly-shape text-center" style={{ padding: '3rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <CheckCircle2 size={48} className="text-secondary mb-md" style={{ marginBottom: '1.5rem' }} />
+            <h3>Message Sent!</h3>
+            <p className="text-light">Thank you for Reaching out. We'll get back to you soon.</p>
+            <button onClick={() => setStatus('idle')} className="mt-md text-secondary font-bold">Send another message</button>
+          </div>
+        ) : (
+          <div className="glass-panel bubbly-shape" style={{ padding: '2rem' }}>
+            <h2 className="mb-md" style={{ marginBottom: '1.5rem' }}>Send a Message</h2>
+            <form className="flex flex-col gap-md" onSubmit={handleSubmit}>
+              <div className="form-group flex flex-col gap-sm">
+                <label className="text-sm font-bold">Name</label>
+                <input 
+                  type="text" required
+                  placeholder="Your Name" 
+                  value={formData.name}
+                  onChange={e => setFormData({...formData, name: e.target.value})}
+                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} 
+                />
+              </div>
+              <div className="form-group flex flex-col gap-sm">
+                <label className="text-sm font-bold">Email / Phone</label>
+                <input 
+                  type="text" required
+                  placeholder="Your Contact Details" 
+                  value={formData.contact}
+                  onChange={e => setFormData({...formData, contact: e.target.value})}
+                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} 
+                />
+              </div>
+              <div className="form-group flex flex-col gap-sm">
+                <label className="text-sm font-bold">Message</label>
+                <textarea 
+                  required
+                  placeholder="How can we help?" 
+                  rows="4" 
+                  value={formData.message}
+                  onChange={e => setFormData({...formData, message: e.target.value})}
+                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                ></textarea>
+              </div>
+              {status === 'error' && <p style={{ color: 'red', fontSize: '0.8rem' }}>Something went wrong. Please try again.</p>}
+              <button disabled={status === 'loading'} className="top-btn flex items-center justify-center gap-sm mt-md" style={{ padding: '1rem', width: '100%' }}>
+                {status === 'loading' ? <Loader2 className="animate-spin" size={18} /> : <Send size={18} />} 
+                {status === 'loading' ? 'Sending...' : 'Send Message'}
+              </button>
+            </form>
+          </div>
+        )}
       </div>
         
       {/* Google Maps Section */}
