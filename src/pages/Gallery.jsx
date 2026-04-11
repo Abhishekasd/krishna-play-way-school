@@ -15,7 +15,8 @@ const Gallery = () => {
   const fetchImages = async () => {
     const { data } = await supabase.storage.from('gallery').list('');
     if (data) {
-      const files = data.filter(file => file.name !== '.emptyFolderPlaceholder');
+      // Filter out folders (which have no id) and the placeholder
+      const files = data.filter(file => file.id && file.name !== '.emptyFolderPlaceholder');
       setImages(files);
     }
     setLoading(false);
@@ -62,7 +63,12 @@ const Gallery = () => {
             const url = supabase.storage.from('gallery').getPublicUrl(img.name).data.publicUrl;
             return (
               <div key={img.name} className="bubbly-shape" style={{ overflow: 'hidden', boxShadow: 'var(--shadow-sm)', aspectRatio: '4/3' }}>
-                <img src={url} alt="Gallery Event" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img 
+                  src={url} 
+                  alt="School Activity" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
               </div>
             );
           })}

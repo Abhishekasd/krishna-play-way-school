@@ -113,7 +113,7 @@ const Admin = () => {
   const fetchImages = async () => {
     const { data, error } = await supabase.storage.from('gallery').list('');
     if (data) {
-      const files = data.filter(file => file.name !== '.emptyFolderPlaceholder');
+      const files = data.filter(file => file.id && file.name !== '.emptyFolderPlaceholder');
       setImages(files);
     }
   };
