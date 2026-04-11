@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Mail } from 'lucide-react';
+import { Menu, X, Phone, Mail, Moon, Sun } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -58,10 +68,20 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Mobile Toggle */}
-        <button className="mobile-toggle" onClick={toggleMenu}>
-          {isOpen ? <X size={28} className="text-secondary" /> : <Menu size={28} className="text-secondary" />}
-        </button>
+        {/* Actions (Theme Toggle + Mobile Menu) */}
+        <div className="flex items-center gap-md">
+          <button 
+            className="theme-toggle bubbly-shape flex items-center justify-center" 
+            onClick={toggleTheme}
+            aria-label="Toggle Theme"
+          >
+            {theme === 'light' ? <Moon size={20} className="text-secondary" /> : <Sun size={20} className="text-primary" />}
+          </button>
+
+          <button className="mobile-toggle" onClick={toggleMenu}>
+            {isOpen ? <X size={28} className="text-secondary" /> : <Menu size={28} className="text-secondary" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}

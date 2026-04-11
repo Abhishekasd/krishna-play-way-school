@@ -276,7 +276,7 @@ const Admin = () => {
               <input 
                 type="email" required
                 value={email} onChange={e => setEmail(e.target.value)}
-                style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} 
+                style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} 
               />
             </div>
             <div className="flex flex-col gap-sm">
@@ -284,7 +284,7 @@ const Admin = () => {
               <input 
                 type="password" required minLength="6"
                 value={password} onChange={e => setPassword(e.target.value)}
-                style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} 
+                style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} 
               />
             </div>
             <button className="top-btn" style={{ padding: '1rem', marginTop: '1rem' }}>
@@ -376,7 +376,7 @@ const Admin = () => {
                 </p>
               </div>
               {userRole === 'guest' && (
-                <div className="mt-lg p-md bubbly-shape bg-light-gray text-sm italic" style={{ border: '1px solid #feb2b2', backgroundColor: '#fff5f5' }}>
+                <div className="mt-lg p-md bubbly-shape text-sm italic" style={{ border: '1px solid var(--color-tertiary)', backgroundColor: 'rgba(255, 107, 107, 0.1)' }}>
                   <strong>Note:</strong> Your account is currently pending authorization. Please contact the Superior Admin to activate your dashboard access.
                 </div>
               )}
@@ -392,13 +392,13 @@ const Admin = () => {
                   placeholder="New notice title..." 
                   value={newNotice} 
                   onChange={e => setNewNotice(e.target.value)}
-                  style={{ flex: 1, padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0', minWidth: '200px' }} 
+                  style={{ flex: 1, padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)', minWidth: '200px' }} 
                   required
                 />
                 <select 
                   value={newCategory} 
                   onChange={e => setNewCategory(e.target.value)}
-                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}
                 >
                   <option>General</option>
                   <option>Events</option>
@@ -410,7 +410,7 @@ const Admin = () => {
 
               <div className="flex flex-col gap-sm">
                 {notices.map(notice => (
-                  <div key={notice.id} className="flex justify-between items-center bg-surface" style={{ padding: '1rem', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+                  <div key={notice.id} className="flex justify-between items-center bg-surface" style={{ padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px' }}>
                     <div>
                       <strong>{notice.title}</strong>
                       <div className="text-sm text-light">{notice.date} - {notice.category}</div>
@@ -434,7 +434,7 @@ const Admin = () => {
               <form className="flex gap-sm mb-lg flex-wrap items-end" onSubmit={handleAddTimetableRow} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem' }}>
                 <div className="flex flex-col gap-sm">
                   <label className="text-sm font-bold">Class</label>
-                  <select value={ttClass} onChange={e=>setTtClass(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <select value={ttClass} onChange={e=>setTtClass(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                     <option>Toddlers</option>
                     <option>Pre-Nursery</option>
                     <option>Nursery</option>
@@ -443,35 +443,35 @@ const Admin = () => {
                 </div>
                 <div className="flex flex-col gap-sm" style={{flex: 1, minWidth: '100px'}}>
                   <label className="text-sm font-bold">Time Slot</label>
-                  <input type="text" placeholder="e.g. 09:00 - 09:30" value={ttTimeSlot} onChange={e=>setTtTimeSlot(e.target.value)} required style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                  <input type="text" placeholder="e.g. 09:00 - 09:30" value={ttTimeSlot} onChange={e=>setTtTimeSlot(e.target.value)} required style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
                 </div>
                 <div className="flex flex-col gap-sm" style={{flex: 1, minWidth: '100px'}}>
                   <label className="text-sm font-bold">Mon</label>
-                  <input type="text" value={ttMonday} onChange={e=>setTtMonday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                  <input type="text" value={ttMonday} onChange={e=>setTtMonday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
                 </div>
                 <div className="flex flex-col gap-sm" style={{flex: 1, minWidth: '100px'}}>
                   <label className="text-sm font-bold">Tue</label>
-                  <input type="text" value={ttTuesday} onChange={e=>setTtTuesday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                  <input type="text" value={ttTuesday} onChange={e=>setTtTuesday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
                 </div>
                 <div className="flex flex-col gap-sm" style={{flex: 1, minWidth: '100px'}}>
                   <label className="text-sm font-bold">Wed</label>
-                  <input type="text" value={ttWednesday} onChange={e=>setTtWednesday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                  <input type="text" value={ttWednesday} onChange={e=>setTtWednesday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
                 </div>
                 <div className="flex flex-col gap-sm" style={{flex: 1, minWidth: '100px'}}>
                   <label className="text-sm font-bold">Thu</label>
-                  <input type="text" value={ttThursday} onChange={e=>setTtThursday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                  <input type="text" value={ttThursday} onChange={e=>setTtThursday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
                 </div>
                 <div className="flex flex-col gap-sm" style={{flex: 1, minWidth: '100px'}}>
                   <label className="text-sm font-bold">Fri</label>
-                  <input type="text" value={ttFriday} onChange={e=>setTtFriday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                  <input type="text" value={ttFriday} onChange={e=>setTtFriday(e.target.value)} style={{ padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
                 </div>
                 <button type="submit" className="top-btn" style={{ padding: '0.6rem 1.2rem', height: '42px' }}>Add</button>
               </form>
 
               <div className="flex flex-col gap-sm" style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'center', backgroundColor: 'var(--color-surface)', border: '1px solid #e2e8f0' }}>
+                <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'center', backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
                   <thead>
-                    <tr style={{ borderBottom: '2px solid #e2e8f0', backgroundColor: '#f7fafc' }}>
+                    <tr style={{ borderBottom: '2px solid var(--color-border)', backgroundColor: 'var(--color-background)' }}>
                       <th style={{ padding: '0.8rem' }}>Class</th>
                       <th style={{ padding: '0.8rem' }}>Time</th>
                       <th style={{ padding: '0.8rem' }}>Mon</th>
@@ -484,7 +484,7 @@ const Admin = () => {
                   </thead>
                   <tbody>
                     {timetable.map(row => (
-                      <tr key={row.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
+                      <tr key={row.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
                         <td style={{ padding: '0.8rem' }}>{row.class_name}</td>
                         <td style={{ padding: '0.8rem', fontWeight: 'bold' }}>{row.time_slot}</td>
                         <td style={{ padding: '0.8rem' }}>{row.monday}</td>
@@ -510,11 +510,11 @@ const Admin = () => {
             <div>
               <h2 className="mb-md">Manage Gallery</h2>
               
-              <div className="flex gap-md mb-lg items-center p-md bg-surface bubbly-shape" style={{ padding: '1.5rem', border: '1px dashed #cbd5e0' }}>
+              <div className="flex gap-md mb-lg items-center p-md bg-surface bubbly-shape" style={{ padding: '1.5rem', border: '1px dashed var(--color-border)' }}>
                 <select 
                   value={imageCategory} 
                   onChange={e => setImageCategory(e.target.value)}
-                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                  style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}
                 >
                   <option>All</option>
                   <option>Events</option>
@@ -537,8 +537,8 @@ const Admin = () => {
 
               <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '1rem' }}>
                 {images.map(img => (
-                  <div key={img.name} className="bubbly-shape bg-surface" style={{ overflow: 'hidden', border: '1px solid #e2e8f0', position: 'relative' }}>
-                    <div style={{ height: '120px', width: '100%', backgroundColor: '#f7fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div key={img.name} className="bubbly-shape bg-surface" style={{ overflow: 'hidden', border: '1px solid var(--color-border)', position: 'relative' }}>
+                    <div style={{ height: '120px', width: '100%', backgroundColor: 'var(--color-background)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <img 
                           src={supabase.storage.from('gallery').getPublicUrl(img.name).data.publicUrl} 
                           alt="gallery" 
@@ -562,7 +562,7 @@ const Admin = () => {
               <h2 className="mb-md">Inquiries & Messages</h2>
               <div className="flex flex-col gap-md">
                 {inquiries.map(item => (
-                  <div key={item.id} className="bubbly-shape bg-surface" style={{ padding: '1.5rem', border: '1px solid #e2e8f0', position: 'relative' }}>
+                  <div key={item.id} className="bubbly-shape bg-surface" style={{ padding: '1.5rem', border: '1px solid var(--color-border)', position: 'relative' }}>
                     <div className="flex justify-between items-start mb-sm">
                       <span className="text-xs font-bold px-sm py-xs bubbly-shape" style={{ backgroundColor: item.type === 'Inquiry' ? 'var(--color-accent)' : 'var(--color-secondary)', color: 'white' }}>
                         {item.type}
@@ -574,7 +574,7 @@ const Admin = () => {
                       {item.parent_name && <p className="text-sm">Parent: {item.parent_name}</p>}
                       <p className="text-sm">Contact: <strong>{item.contact}</strong></p>
                       {item.message && (
-                        <div className="mt-sm p-sm bg-light-gray bubbly-shape italic text-sm" style={{ backgroundColor: '#f7fafc', borderLeft: '3px solid var(--color-secondary)' }}>
+                        <div className="mt-sm p-sm bg-light-gray bubbly-shape italic text-sm" style={{ backgroundColor: 'var(--color-background)', borderLeft: '3px solid var(--color-secondary)' }}>
                           "{item.message}"
                         </div>
                       )}
@@ -598,14 +598,14 @@ const Admin = () => {
                 <input 
                   type="email" required placeholder="New Admin Email..."
                   value={newAdminEmail} onChange={e => setNewAdminEmail(e.target.value)}
-                  style={{ flex: 1, padding: '0.8rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
+                  style={{ flex: 1, padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}
                 />
                 <button type="submit" className="top-btn" style={{ padding: '0.8rem 1.5rem', backgroundColor: 'var(--color-accent)' }}>Authorize Admin</button>
               </form>
 
               <div className="flex flex-col gap-sm">
                 {allAdmins.map(adm => (
-                  <div key={adm.id} className="flex justify-between items-center bg-surface" style={{ padding: '1rem', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+                  <div key={adm.id} className="flex justify-between items-center bg-surface" style={{ padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px' }}>
                     <div>
                       <strong>{adm.email}</strong>
                       <span className="ml-md text-xs font-bold px-sm py-xs bubbly-shape" style={{ backgroundColor: adm.role === 'super_admin' ? 'gold' : '#edf2f7', color: adm.role === 'super_admin' ? 'black' : 'var(--color-text-dark)' }}>
