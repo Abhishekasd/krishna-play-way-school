@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../supabase';
+import { fadeInUp, staggerContainer, itemReveal, hoverLift } from '../utils/animations';
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -15,7 +17,6 @@ const Gallery = () => {
   const fetchImages = async () => {
     const { data } = await supabase.storage.from('gallery').list('');
     if (data) {
-      // Filter out folders (which have no id) and the placeholder
       const files = data.filter(file => file.id && file.name !== '.emptyFolderPlaceholder');
       setImages(files);
     }
@@ -27,17 +28,29 @@ const Gallery = () => {
     : images.filter(img => img.name.startsWith(`${activeCategory}_`));
 
   return (
-    <div className="container" style={{ padding: '4rem 1.5rem', minHeight: '60vh' }}>
-      <div className="text-center mb-lg" style={{ marginBottom: '3rem' }}>
+    <motion.div 
+      className="container" 
+      style={{ padding: '4rem 1.5rem', minHeight: '60vh' }}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div className="text-center mb-lg" style={{ marginBottom: '3rem' }} variants={fadeInUp}>
         <h1 className="text-secondary">Photo Gallery</h1>
-        <p className="text-light">Memories from our school activities</p>
-      </div>
+        <p className="text-muted">Memories from our school activities</p>
+      </motion.div>
 
-      <div className="flex justify-center gap-sm mb-lg flex-wrap" style={{ marginBottom: '2rem' }}>
+      <motion.div 
+        className="flex justify-center gap-sm mb-lg flex-wrap" 
+        style={{ marginBottom: '2rem' }}
+        variants={staggerContainer}
+      >
         {categories.map(cat => (
-          <button 
+          <motion.button 
             key={cat}
             onClick={() => setActiveCategory(cat)}
+            variants={hoverLift}
+            whileHover="whileHover"
+            whileTap="whileTap"
             style={{ 
               backgroundColor: activeCategory === cat ? 'var(--color-secondary)' : 'var(--color-surface)',
               color: activeCategory === cat ? 'var(--color-always-light)' : 'var(--color-text-muted)',
@@ -45,36 +58,55 @@ const Gallery = () => {
               padding: '0.4rem 1.2rem',
               borderRadius: '9999px',
               fontWeight: 'bold',
-              transition: 'all 0.2s'
+              transition: 'background-color 0.2s, color 0.2s'
             }}
           >
             {cat}
-          </button>
+          </motion.button>
         ))}
-      </div>
+      </motion.div>
 
       {loading ? (
-        <p className="text-center text-light">Loading gallery...</p>
-      ) : filtered.length === 0 ? (
-        <p className="text-center text-light">No images available for this category.</p>
+        <motion.p className="text-center text-muted" variants={fadeInUp}>Loading gallery...</motion.p>
       ) : (
-        <div className="responsive-grid">
-          {filtered.map(img => {
-            const url = supabase.storage.from('gallery').getPublicUrl(img.name).data.publicUrl;
-            return (
-              <div key={img.name} className="bubbly-shape" style={{ overflow: 'hidden', boxShadow: 'var(--shadow-sm)', aspectRatio: '4/3' }}>
-                <img 
-                  src={url} 
-                  alt="School Activity" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
-                  onError={(e) => { e.target.style.display = 'none'; }}
-                />
-              </div>
-            );
-          })}
-        </div>
+        <motion.div 
+          className="responsive-grid"
+          variants={staggerContainer}
+          layout
+        >
+          <AnimatePresence mode='popLayout'>
+            {filtered.map(img => {
+              const url = supabase.storage.from('gallery').getPublicUrl(img.name).data.publicUrl;
+              return (
+                <motion.div 
+                  key={img.name} 
+                  className="bubbly-shape" 
+                  layout
+                  variants={itemReveal}
+                  initial="hidden"
+                  animate="visible"
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  style={{ overflow: 'hidden', boxShadow: 'var(--shadow-sm)', aspectRatio: '4/3' }}
+                  whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                >
+                  <img 
+                    src={url} 
+                    alt="School Activity" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+          {filtered.length === 0 && (
+            <motion.p className="text-center text-muted" style={{ gridColumn: '1/-1' }} variants={fadeInUp}>
+              No images available for this category.
+            </motion.p>
+          )}
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

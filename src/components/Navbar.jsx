@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, Mail, Moon, Sun } from 'lucide-react';
+import { hoverLift, staggerContainer, itemReveal } from '../utils/animations';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -31,7 +33,12 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="navbar-wrapper">
+    <motion.header 
+      className="navbar-wrapper"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="top-bar">
         <div className="container flex justify-between items-center top-bar-content">
           <div className="contact-info flex items-center gap-md">
@@ -47,7 +54,12 @@ const Navbar = () => {
       <nav className="navbar container flex justify-between items-center">
         <Link to="/" className="brand flex items-center gap-sm">
           {/* Logo */}
-          <img src="/logo.jpg" alt="Krishna Play Way School Logo" className="logo-img" />
+          <motion.img 
+            src="/logo.jpg" 
+            alt="Krishna Play Way School Logo" 
+            className="logo-img" 
+            whileHover={{ rotate: 10, scale: 1.1 }}
+          />
           <div className="brand-text">
             <h1>Krishna</h1>
             <p>Play Way School</p>
@@ -58,25 +70,33 @@ const Navbar = () => {
         <ul className="nav-menu desktop-menu flex items-center">
           {navLinks.map((link) => (
             <li key={link.name}>
-              <Link 
-                to={link.path} 
-                className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+              <motion.div
+                variants={hoverLift}
+                whileHover="whileHover"
+                whileTap="whileTap"
               >
-                {link.name}
-              </Link>
+                <Link 
+                  to={link.path} 
+                  className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
             </li>
           ))}
         </ul>
 
         {/* Actions (Theme Toggle + Mobile Menu) */}
         <div className="flex items-center gap-md">
-          <button 
+          <motion.button 
             className="theme-toggle bubbly-shape flex items-center justify-center" 
             onClick={toggleTheme}
             aria-label="Toggle Theme"
+            whileHover={{ rotate: 15 }}
+            whileTap={{ scale: 0.9, rotate: -15 }}
           >
             {theme === 'light' ? <Moon size={20} className="text-secondary" /> : <Sun size={20} className="text-primary" />}
-          </button>
+          </motion.button>
 
           <button className="mobile-toggle" onClick={toggleMenu}>
             {isOpen ? <X size={28} className="text-secondary" /> : <Menu size={28} className="text-secondary" />}
@@ -85,24 +105,38 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="mobile-menu bg-surface top-bar-shadow">
-          <ul className="flex flex-col">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <Link 
-                  to={link.path} 
-                  className={`mobile-link ${location.pathname === link.path ? 'active' : ''}`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </header>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            className="mobile-menu bg-surface top-bar-shadow"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            style={{ overflow: 'hidden' }}
+          >
+            <motion.ul 
+              className="flex flex-col"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
+              {navLinks.map((link) => (
+                <motion.li key={link.name} variants={itemReveal}>
+                  <Link 
+                    to={link.path} 
+                    className={`mobile-link ${location.pathname === link.path ? 'active' : ''}`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 
