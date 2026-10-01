@@ -1,7 +1,8 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import FloatingActions from './components/FloatingActions';
 
 // Page Imports
 import Home from './pages/Home';
@@ -14,9 +15,21 @@ import Admission from './pages/Admission';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 
+// Scroll to top on route change component
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <div className="app-container">
+      <ScrollToTop />
       <Navbar />
       <main className="main-content" style={{ minHeight: '80vh' }}>
         <Routes>
@@ -31,9 +44,11 @@ function App() {
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
+      <FloatingActions />
       <Footer />
     </div>
   );
 }
 
 export default App;
+
